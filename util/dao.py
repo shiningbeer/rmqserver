@@ -44,6 +44,11 @@ class Dao(object):
     def delete_many(self,tname,find_dict):
         coll=self.db[tname]
         return coll.delete_many(find_dict)
+    def delete_one(self,tname,find_dict):
+        coll=self.db[tname]
+        return coll.delete_one(find_dict)
+    def drop_col(self,tname):
+        return self.db.drop_collection(tname) 
 
     def find_one_and_update(self,tname,find_dict,update_dict):
         coll=self.db[tname]
@@ -55,7 +60,8 @@ class Dao(object):
         return col in cols
 
 if __name__ == '__main__':
-    dbo=Dao('cent')
+    dbo=Dao('localhost',27017,'cidrTask')
+    dbo.drop_col('ii')
     # print dbo.list_collection_names()
-    print dbo.collection_exits('use')
+    # print dbo.collection_exits('use')
     # dbo.insert('task',{'plugin':{'name':'s7.py'},'ipRange':['210.203.0.1','210.203.0.1','202,21.1.1'],'paused':False,'complete':False,'goWrong':False,'running':False,'progress':0,'type':'plugin'})
