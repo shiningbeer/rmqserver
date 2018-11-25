@@ -36,7 +36,7 @@ def deal_with_msg(body):
     dao.update_one(name,{'_id':oid},msg)
     print u'received and stored a result item of task: %s' % name
 try:
-    receive=Receiver(config.rmq_host,config.rmq_user,config.rmq_password,config.cidr_receive_channel,deal_with_msg)
+    receive=Receiver(config.rmq_host,config.rmq_user,config.rmq_password,config.cidr_result_channel,deal_with_msg)
     receive.start_listen()
 except Exception,e:
     print u'cannot connect rmq server!',repr(e)

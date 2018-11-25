@@ -15,7 +15,7 @@ config=Config('../util/config.ini')
 dao=Dao(config.db_host,config.db_port,config.db_cidr)
 
 try:
-    send=Sender(config.rmq_host,config.rmq_user,config.rmq_password,config.cidr_send_channel)
+    send=Sender(config.rmq_host,config.rmq_user,config.rmq_password,config.cidr_task_channel)
 except Exception,e:
     print u'cannot connect rmq server!',repr(e)
     sys.exit(0)
