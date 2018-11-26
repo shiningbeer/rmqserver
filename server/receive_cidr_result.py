@@ -9,9 +9,19 @@ import json
 import os
 from bson import ObjectId
 from time import sleep
+import datetime
 
+
+from threading import Thread
 from util.config import Config
-
+try:
+    if len(sys.argv)==1:
+        run_count=1
+    else:
+        run_count=int(sys.argv[1])
+except Exception,e:
+    print u'sys args wrong!',repr(e)
+    
 # read config
 config=Config('../util/config.ini')
 # connect to db of cidr task
@@ -34,10 +44,12 @@ def deal_with_msg(body):
         logger.error('%s, original message: %s' %(repr(e),body))
         return
     dao.update_one(name,{'_id':oid},msg)
-    print u'received and stored a result item of task: %s' % name
+    timenow=datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
+    print u'%s -- received and stored a result item of task: %s' % ( timenow,name)
 try:
-    receive=Receiver(config.rmq_host,config.rmq_user,config.rmq_password,config.cidr_result_channel,deal_with_msg)
-    receive.start_listen()
+    for i in range(run_count):
+        receive=Receiver(config.rmq_host,config.rmq_user,config.rmq_password,config.cidr_result_channel,deal_with_msg)
+        receive.start_listen()
 except Exception,e:
     print u'cannot connect rmq server!',repr(e)
     sys.exit(0)
