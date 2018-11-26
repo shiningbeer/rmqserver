@@ -44,7 +44,7 @@ def deal_with_msg(body):
         logger.error('%s, original message: %s' %(repr(e),body))
         return
     dao.update_one(name,{'_id':oid},msg)
-    lprint(datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S'),'SKYBLUE')
+    lprint(datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S'),'cyan')
     print u'-- stored a result of task: %s' % name
 try:
     for i in range(run_count):

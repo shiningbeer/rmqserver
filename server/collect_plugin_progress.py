@@ -5,7 +5,7 @@ sys.path.append('..')
 from util.cprint import cprint
 from util.config import Config
 from util.dao import Dao
-cprint ('------PLUGIN Task Progress Info--------','PINK')
+cprint ('------PLUGIN Task Progress Info--------','magenta')
 # read config
 config=Config('../util/config.ini')
 # connect to db of plugin task

@@ -5,7 +5,7 @@ sys.path.append('..')
 from util.config import Config
 from util.cprint import cprint
 from util.dao import Dao
-cprint ('------CIDR Task Progress Info--------','PINK')
+cprint ('------CIDR Task Progress Info--------','magenta')
 # read config
 config=Config('../util/config.ini')
 # connect to db of cidr task

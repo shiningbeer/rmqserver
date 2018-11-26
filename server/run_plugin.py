@@ -6,7 +6,7 @@ from util.cprint import cprint
 import datetime
 from time import sleep
 while True:
-    cprint (datetime.datetime.now().strftime('%Y.%m.%d %H:%M:%S'),'SKYBLUE')
+    cprint (datetime.datetime.now().strftime('%Y.%m.%d %H:%M:%S'),'cyan')
     os.system('python dispatch_plugin_task.py')
     print ' '
     os.system('python collect_plugin_progress.py')

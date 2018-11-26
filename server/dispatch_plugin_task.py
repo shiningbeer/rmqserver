@@ -9,7 +9,7 @@ from util.config import Config
 from util.cprint import cprint
 
 
-cprint ('------PLUGIN Task Dispatch Info--------','PINK')
+cprint ('------PLUGIN Task Dispatch Info--------','magenta')
 # read config
 config=Config('../util/config.ini')
 # connect to db of plugin task

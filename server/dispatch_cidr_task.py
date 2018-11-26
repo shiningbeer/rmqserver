@@ -9,7 +9,7 @@ import json
 from util.config import Config
 
 
-cprint ('------CIDR Task Dispatch Info--------','PINK')
+cprint ('------CIDR Task Dispatch Info--------','magenta')
 # read config
 config=Config('../util/config.ini')
 # connect to db of cidr task
