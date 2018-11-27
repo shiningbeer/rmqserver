@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 import sys
-sys.path.append('..')
+# sys.path.append('..')
 from util.config import Config
 from util.dao import Dao
 # read config
-config=Config('../util/config.ini')
+config=Config('./util/config.ini')
 # connect to db of cidr task
 dao=Dao(config.db_host,config.db_port,config.db_cidr)
 if len(sys.argv)!=2:

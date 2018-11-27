@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 import sys
-sys.path.append('..')
+# sys.path.append('..')
 from util.config import Config
 from util.dao import Dao
 # read config
-config=Config('../util/config.ini')
+config=Config('./util/config.ini')
 # connect to db of cidr task
 dao=Dao(config.db_host,config.db_port,config.db_cidr)
 if len(sys.argv)!=2:
@@ -20,7 +20,7 @@ result_list=[]
 for item in items:
     rlist=item['result']
     result_list.extend(rlist)
-f=open(task_name+'.ret','w')
+f=open(task_name+'.crt','w')
 for i in range(len(result_list)-1):
     result_list[i]+='\n'
 f.writelines(result_list)

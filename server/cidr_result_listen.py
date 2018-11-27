@@ -23,7 +23,7 @@ except Exception,e:
     print u'sys args wrong!',repr(e)
     
 # read config
-config=Config('../util/config.ini')
+config=Config('./util/config.ini')
 # connect to db of cidr task
 dao=Dao(config.db_host,config.db_port,config.db_cidr)
 def deal_with_msg(body):

@@ -5,17 +5,17 @@ sys.path.append('..')
 from util.config import Config
 from util.dao import Dao
 # read config
-config=Config('../util/config.ini')
+config=Config('./util/config.ini')
 # connect to db of cidr task
-dao=Dao(config.db_host,config.db_port,config.db_plugin)
+dao=Dao(config.db_host,config.db_port,config.db_cidr)
 if len(sys.argv)==1:
-    if raw_input('Do you want to delete all the plugin tasks? (y/n)')!='y':
+    if raw_input('Do you want to delete all the cidr tasks? (y/n)')!='y':
         sys.exit(0)
     tasks=dao.find_many(config.col_taskinfo,{})
     for task in tasks:
         dao.drop_col(task['name'])
     dao.delete_many(config.col_taskinfo,{})
-    print u'All plugin tasks are deleted!'
+    print u'All cidr tasks are deleted!'
 else:
     name= sys.argv[1]
 

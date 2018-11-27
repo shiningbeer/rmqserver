@@ -5,11 +5,11 @@ sys.path.append('..')
 from util.cprint import cprint
 from util.config import Config
 from util.dao import Dao
-cprint ('------PLUGIN Task Progress Info--------','magenta')
+cprint ('------ipv4 Task Progress Info--------','yellow')
 # read config
-config=Config('../util/config.ini')
-# connect to db of plugin task
-dao=Dao(config.db_host,config.db_port,config.db_plugin)
+config=Config('./util/config.ini')
+# connect to db of ipv4 task
+dao=Dao(config.db_host,config.db_port,config.db_ipv4)
 # collect progress
 uncompleted_tasks=dao.find_many(config.col_taskinfo,{'complete':False})
 if uncompleted_tasks.count()==0:

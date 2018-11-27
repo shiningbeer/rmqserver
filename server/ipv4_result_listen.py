@@ -23,9 +23,9 @@ except Exception,e:
     print u'sys args wrong!',repr(e)
     sys.exit(0)
 # read config
-config=Config('../util/config.ini')
-# connect to db of plugin task
-dao=Dao(config.db_host,config.db_port,config.db_plugin)
+config=Config('./util/config.ini')
+# connect to db of ipv4 task
+dao=Dao(config.db_host,config.db_port,config.db_ipv4)
 def deal_with_msg(body):
     try:
         task=json.loads(body)    
@@ -48,7 +48,7 @@ def deal_with_msg(body):
     print u'-- stored a result of task: %s' % name
 try:
     for i in range(run_count):
-        receive=Receiver(config.rmq_host,config.rmq_user,config.rmq_password,config.plugin_result_channel,deal_with_msg)
+        receive=Receiver(config.rmq_host,config.rmq_user,config.rmq_password,config.ipv4_result_channel,deal_with_msg)
         t=Thread(target=receive.start_listen).start()
 except Exception,e:
     print u'cannot connect rmq server!',repr(e)

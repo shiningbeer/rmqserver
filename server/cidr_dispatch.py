@@ -3,26 +3,26 @@ import sys
 sys.path.append('..')
 from util.sender import Sender
 from util.logger import logger
+from util.cprint import cprint
 from util.dao import Dao
 import json
 from util.config import Config
-from util.cprint import cprint
 
 
-cprint ('------PLUGIN Task Dispatch Info--------','magenta')
+cprint ('------CIDR Task Dispatch Info--------','magenta')
 # read config
-config=Config('../util/config.ini')
-# connect to db of plugin task
-dao=Dao(config.db_host,config.db_port,config.db_plugin)
+config=Config('./util/config.ini')
+# connect to db of cidr task
+dao=Dao(config.db_host,config.db_port,config.db_cidr)
 
 try:
-    send=Sender(config.rmq_host,config.rmq_user,config.rmq_password,config.plugin_task_channel)
+    send=Sender(config.rmq_host,config.rmq_user,config.rmq_password,config.cidr_task_channel)
 except Exception,e:
     print u'cannot connect rmq server!',repr(e)
     sys.exit(0)
 msg_count=send.get_msg_count()
-if msg_count>config.plugin_max_length:
-    print u'queue length: %s > %s. waiting...' % (msg_count, config.plugin_max_length)
+if msg_count>config.cidr_max_length:
+    print u'queue length: %s > %s. waiting...' % (msg_count, config.cidr_max_length)
     sys.exit(0)
 print 'queue length: %d ' % msg_count
 task=dao.find_one(config.col_taskinfo,{'allSent':False,'pause':False})
@@ -42,7 +42,7 @@ if not dao.collection_exits(col_name):
     dao.delete_many(config.col_taskinfo,{'name':col_name})
     logger.critical('the task %s is deleted in tasinInfo table!' % col_name)
     sys.exit(0)
-for i in range(config.plugin_batch_count):
+for i in range(config.cidr_batch_count):
     doc=dao.find_one(col_name,{'sent':None})
     if doc is None:
         # means the ip of task is all sent
@@ -58,5 +58,5 @@ for i in range(config.plugin_batch_count):
         print repr(e)
         continue
     dao.update_one(col_name,{'_id':doc_id},{'sent':True})
-print 'task--%s : sent another %d' % (col_name,config.plugin_batch_count)
+print 'task--%s : sent another %d' % (col_name,config.cidr_batch_count)
 send.close()

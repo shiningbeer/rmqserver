@@ -6,7 +6,7 @@ from util.config import Config
 from util.dao import Dao
 from util.functions import is_cidr
 # read config
-config=Config('../util/config.ini')
+config=Config('./util/config.ini')
 # connect to db of cidr task
 dao=Dao(config.db_host,config.db_port,config.db_cidr)
 # parse sys argv
