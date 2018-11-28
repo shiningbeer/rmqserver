@@ -1,10 +1,10 @@
-import ConfigParser
+import configparser
 import sys
 
 class Config():
     def __init__(self,file):
         try:
-            config=ConfigParser.ConfigParser()
+            config=configparser.ConfigParser()
             config.read(file)
             self.rmq_host=config.get('rmq','host')
             self.rmq_user=config.get('rmq','user')
@@ -22,6 +22,6 @@ class Config():
             self.col_taskinfo=config.get('mongo','taskinfo_col_name')
             self.db_cidr=config.get('mongo','cidr_db_name')
             self.db_ipv4=config.get('mongo','ipv4_db_name')
-        except Exception,e:
-            print u'reading config.ini error!',repr(e)
+        except Exception as e:
+            print('reading config.ini error!',repr(e))
             sys.exit(0)

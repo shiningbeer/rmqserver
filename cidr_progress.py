@@ -12,8 +12,9 @@ config=Config('./util/config.ini')
 dao=Dao(config.db_host,config.db_port,config.db_cidr)
 # collect progress
 uncompleted_tasks=dao.find_many(config.col_taskinfo,{'complete':False})
-if uncompleted_tasks.count()==0:
-    print 'task all complete!'
+uncompleted_tasks_count=dao.find_count(config.col_taskinfo,{'complete':False})
+if uncompleted_tasks_count==0:
+    print('task all complete!')
 for utask in uncompleted_tasks:
     finished_count=dao.find_count(utask['name'],{'$or':[{'error':{'$exists':True}},{'result':{'$exists':True}}]})
     sent_count=dao.find_count(utask['name'],{'sent':True})
@@ -21,4 +22,4 @@ for utask in uncompleted_tasks:
         #complete
         dao.update_one(config.col_taskinfo,{'_id':utask['_id']},{'complete':True})
     dao.update_one(config.col_taskinfo,{'_id':utask['_id']},{'progress':finished_count})
-    print 'task--%s : sent (%d/%d)   complete (%d/%d)' % (utask['name'],sent_count,utask['count'], finished_count,utask['count'])
+    print('task--%s : sent (%d/%d)   complete (%d/%d)' % (utask['name'],sent_count,utask['count'], finished_count,utask['count']))

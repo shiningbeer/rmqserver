@@ -9,12 +9,12 @@ from time import sleep
 while True:
     cprint (datetime.datetime.now().strftime('%Y.%m.%d %H:%M:%S'),'cyan')
     os.system('python cidr_dispatch.py')
-    print ' '
+    print(' ')
     os.system('python cidr_progress.py')
-    print ' '
+    print(' ')
     os.system('python ipv4_dispatch.py')
-    print ' '
+    print(' ')
     os.system('python ipv4_progress.py')
     for i in range(3):
-        print ' '
+        print(' ')
     sleep(10)

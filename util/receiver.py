@@ -23,7 +23,7 @@ class Receiver:
 
 if __name__ == "__main__":
     def xxx(body):
-        print(" [x] Received %r" % body)
+        print((" [x] Received %r" % body))
         print(" [x] Done")
     receiver=Receiver('154.223.179.149','worker','hello','task_queue',xxx)
     receiver.start_listen()

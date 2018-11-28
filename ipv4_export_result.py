@@ -10,11 +10,11 @@ config=Config('./util/config.ini')
 # connect to db of ipv4 task
 dao=Dao(config.db_host,config.db_port,config.db_ipv4)
 if len(sys.argv)!=2:
-    print u'sys args wrong!'
+    print('sys args wrong!')
     sys.exit(0)
 task_name=sys.argv[1]
 if not dao.collection_exits(task_name):
-    print u'task does not exit!'
+    print('task does not exit!')
     sys.exit(0)
 items=dao.find_many(task_name,{'result':{'$exists':True}})
 
@@ -28,4 +28,4 @@ for item in items:
         f.write('\n')
 
 f.close()
-print u'task result exported successfully!'
+print('task result exported successfully!')

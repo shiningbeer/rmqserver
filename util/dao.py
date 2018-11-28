@@ -4,10 +4,11 @@ from pymongo import MongoClient as mc
 import pymongo
 import datetime
 import sys
+import importlib
 
 default_encoding = 'utf-8'
 if sys.getdefaultencoding() != default_encoding:
-    reload(sys)
+    importlib.reload(sys)
     sys.setdefaultencoding(default_encoding)
 
 class Dao(object):
@@ -18,8 +19,8 @@ class Dao(object):
             # self.client = mc('mongodb://192.168.3.123:27017')
             self.client.admin.command('ismaster')
             self.db = self.client[db_name]
-        except Exception,e:
-            print u'cannot connect database!',repr(e)
+        except Exception as e:
+            print('cannot connect database!',repr(e))
             sys.exit(0)
     def update_many(self,col,find_dict,update_dict):
         coll=self.db[col]
@@ -36,7 +37,7 @@ class Dao(object):
         return coll.find(find_dict)
     def find_count(self,col,find_dict):
         coll=self.db[col]
-        return coll.find(find_dict).count()
+        return coll.count_documents(find_dict)
 
     def insert_one(self,tableName,document):
         coll=self.db[tableName]

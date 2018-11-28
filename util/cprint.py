@@ -123,16 +123,16 @@ if sys.platform.startswith('win'):
         elif color=='white':
             set_cmd_text_color(FOREGROUND_WHITE)
             
-        print mess,
+        print(mess, end=' ')
         resetColor()
 else:
     from termcolor import colored
     def ccprint(msg,color):
         text=colored(text=msg,color=color)
-        print text
+        print(text)
     def llprint(msg,color):
         text=colored(text=msg,color=color)
-        print text,
+        print(text, end=' ')
 
 def cprint(msg,color):
     ccprint(msg,color)
@@ -143,6 +143,6 @@ def lprint(msg,color):
     
 if __name__=='__main__':
     while 1:
-        mess=raw_input('msg:')
-        color=raw_input('color:')
+        mess=input('msg:')
+        color=input('color:')
         cprint(mess,color)

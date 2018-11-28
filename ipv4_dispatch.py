@@ -17,23 +17,24 @@ dao=Dao(config.db_host,config.db_port,config.db_ipv4)
 
 try:
     send=Sender(config.rmq_host,config.rmq_user,config.rmq_password,config.ipv4_task_channel)
-except Exception,e:
-    print u'cannot connect rmq server!',repr(e)
+except Exception as e:
+    print('cannot connect rmq server!',repr(e))
     sys.exit(0)
 msg_count=send.get_msg_count()
 if msg_count>config.ipv4_max_length:
-    print u'queue length: %s > %s. waiting...' % (msg_count, config.ipv4_max_length)
+    print('queue length: %s > %s. waiting...' % (msg_count, config.ipv4_max_length))
     sys.exit(0)
-print 'queue length: %d ' % msg_count
+print('queue length: %d ' % msg_count)
 task=dao.find_one(config.col_taskinfo,{'allSent':False,'pause':False})
 if task is None:
     ptasks=dao.find_many(config.col_taskinfo,{'pause':True})
-    if ptasks.count()==0:
-        print u'no task now!'
+    ptasks_count=dao.find_count(config.col_taskinfo,{'pause':True})
+    if ptasks_count==0:
+        print('no task now!')
 
     else:
         for pt in ptasks:
-            print '%s: paused.' % pt['name']
+            print('%s: paused.' % pt['name'])
     sys.exit(0)
 col_name=task['name']
 task_id=task['_id']
@@ -54,9 +55,9 @@ for i in range(config.ipv4_batch_count):
     msg=json.dumps(doc)
     try:
         send.send_msg(msg)
-    except Exception,e:
-        print repr(e)
+    except Exception as e:
+        print(repr(e))
         continue
     dao.update_one(col_name,{'_id':doc_id},{'sent':True})
-print 'task--%s : sent another %d' % (col_name,config.ipv4_batch_count)
+print('task--%s : sent another %d' % (col_name,config.ipv4_batch_count))
 send.close()

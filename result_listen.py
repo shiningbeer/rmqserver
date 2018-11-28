@@ -24,8 +24,8 @@ try:
         run_cidr_count=int(sys.argv[index+1])
         index=sys.argv.index('-p')
         run_ipv4_count=int(sys.argv[index+1])
-except Exception,e:
-    print u'sys args wrong!',repr(e)
+except Exception as e:
+    print('sys args wrong!',repr(e))
     sys.exit(0)
 # read config
 config=Config('./util/config.ini')
@@ -38,7 +38,7 @@ def deal_with_ipv4(body):
         id=task['_id']
         name=task['name']
         msg=task['msg']
-    except Exception, e:
+    except Exception as e:
         logger.error('%s, original message: %s' %(repr(e),body))
         return
     if id is None or name is None:
@@ -46,13 +46,13 @@ def deal_with_ipv4(body):
         return
     try:
         oid=ObjectId(id)
-    except Exception,e:
+    except Exception as e:
         logger.error('%s, original message: %s' %(repr(e),body))
         return
     dao_ipv4.update_one(name,{'_id':oid},msg)
     lprint(datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S'),'cyan')
     lprint('ipv4','yellow')
-    print u'-- stored a result of task: %s' % name
+    print('-- stored a result of task: %s' % name)
 
 def deal_with_cidr(body):
     try:
@@ -60,7 +60,7 @@ def deal_with_cidr(body):
         id=task['_id']
         name=task['name']
         msg=task['msg']
-    except Exception, e:
+    except Exception as e:
         logger.error('%s, original message: %s' %(repr(e),body))
         return
     if id is None or name is None:
@@ -68,13 +68,13 @@ def deal_with_cidr(body):
         return
     try:
         oid=ObjectId(id)
-    except Exception,e:
+    except Exception as e:
         logger.error('%s, original message: %s' %(repr(e),body))
         return
     dao_cidr.update_one(name,{'_id':oid},msg)
     lprint(datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S'),'cyan')
     lprint('cidr','magenta')
-    print u'-- stored a result of task: %s' % name
+    print('-- stored a result of task: %s' % name)
 try:
     for i in range(run_ipv4_count):
         receive=Receiver(config.rmq_host,config.rmq_user,config.rmq_password,config.ipv4_result_channel,deal_with_ipv4)
@@ -82,6 +82,6 @@ try:
     for i in range(run_cidr_count):
         receive=Receiver(config.rmq_host,config.rmq_user,config.rmq_password,config.cidr_result_channel,deal_with_cidr)
         receive.start_listen()
-except Exception,e:
-    print u'cannot connect rmq server!',repr(e)
+except Exception as e:
+    print('cannot connect rmq server!',repr(e))
     sys.exit(0)

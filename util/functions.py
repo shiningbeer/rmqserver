@@ -14,6 +14,6 @@ def is_ipv4(str_ipv4):
     else:
         return True
 if __name__ == "__main__":
-    print is_cidr('192.168.0.0/24')
-    print is_ipv4('192.167.1.333')
+    print(is_cidr('192.168.0.0/24'))
+    print(is_ipv4('192.167.1.333'))
     

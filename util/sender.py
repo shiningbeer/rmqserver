@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import pika
-from logger import logger
+from .logger import logger
 class Sender:
     def __init__(self, host,user,pw,queue):
         credentials = pika.PlainCredentials(user, pw)

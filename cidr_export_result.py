@@ -9,11 +9,11 @@ config=Config('./util/config.ini')
 # connect to db of cidr task
 dao=Dao(config.db_host,config.db_port,config.db_cidr)
 if len(sys.argv)!=2:
-    print u'sys args wrong!'
+    print('sys args wrong!')
     sys.exit(0)
 task_name=sys.argv[1]
 if not dao.collection_exits(task_name):
-    print u'task does not exit!'
+    print('task does not exit!')
     sys.exit(0)
 items=dao.find_many(task_name,{'result':{'$exists':True}})
 result_list=[]
@@ -25,4 +25,4 @@ for i in range(len(result_list)-1):
     result_list[i]+='\n'
 f.writelines(result_list)
 f.close()
-print u'task result exported successfully!'
+print('task result exported successfully!')
