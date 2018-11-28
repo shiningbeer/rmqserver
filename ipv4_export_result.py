@@ -8,8 +8,7 @@ import json
 # read config
 config=Config('./util/config.ini')
 # connect to db of ipv4 task
-dao=Dao(config.db_host,config.db_port,'pluginTask')
-# dao=Dao(config.db_host,config.db_port,config.db_ipv4)
+dao=Dao(config.db_host,config.db_port,config.db_ipv4)
 if len(sys.argv)!=2:
     print u'sys args wrong!'
     sys.exit(0)
