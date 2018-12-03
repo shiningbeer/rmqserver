@@ -21,7 +21,7 @@ try:
     else:
         index=sys.argv.index('-c')
         run_cidr_count=int(sys.argv[index+1])
-        index=sys.argv.index('-p')
+        index=sys.argv.index('-i')
         run_ipv4_count=int(sys.argv[index+1])
 except Exception as e:
     print('sys args wrong!',repr(e))
@@ -77,7 +77,7 @@ def deal_with_cidr(body):
 try:
     for i in range(run_ipv4_count):
         receive=Receiver(config.rmq_host,config.rmq_user,config.rmq_password,config.ipv4_result_channel,deal_with_ipv4)
-        t=Thread(target=receive.start_listen).start()
+        Thread(target=receive.start_listen).start()
     for i in range(run_cidr_count):
         receive=Receiver(config.rmq_host,config.rmq_user,config.rmq_password,config.cidr_result_channel,deal_with_cidr)
         receive.start_listen()
