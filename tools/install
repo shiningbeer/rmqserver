@@ -1,0 +1,10 @@
+apt install python-pip -y
+apt install git
+pip install pika
+pip install Ipy
+pip install requests
+pip install chardet
+git clone https://github.com/shiningbeer/rmqClient.git
+cd rmqClient
+chmod +x ./start.sh
+chmod +x ./stop.sh
