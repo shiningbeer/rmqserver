@@ -4,7 +4,7 @@ import sys
 if len(sys.argv)!=2:
     print ('sys args wrong!')
     sys.exit(0)
-host='154.223.179.149'
+host='154.223.179.242'
 con=SSHConnection(host,22,'root',sys.argv[1])
 print ('---start install erlang---')
 con.exec_command('apt install erlang -y')

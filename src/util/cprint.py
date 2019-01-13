@@ -123,7 +123,7 @@ if sys.platform.startswith('win'):
         elif color=='white':
             set_cmd_text_color(FOREGROUND_WHITE)
             
-        print(mess, end=' ')
+        print(mess)
         resetColor()
 else:
     from termcolor import colored
@@ -132,7 +132,7 @@ else:
         print(text)
     def llprint(msg,color):
         text=colored(text=msg,color=color)
-        print(text, end=' ')
+        print(text )
 
 def cprint(msg,color):
     ccprint(msg,color)

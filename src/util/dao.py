@@ -7,9 +7,7 @@ import sys
 import importlib
 
 default_encoding = 'utf-8'
-if sys.getdefaultencoding() != default_encoding:
-    importlib.reload(sys)
-    sys.setdefaultencoding(default_encoding)
+
 
 class Dao(object):
     # 构造时连接数据库
